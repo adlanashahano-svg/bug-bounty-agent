@@ -1,0 +1,26 @@
+name: Проверка агента
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  check-agent:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Получить код проекта
+        uses: actions/checkout@v4
+
+      - name: Установить Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Проверить код Python
+        run: python -m py_compile Agent.py
+
+      - name: Проверка завершена
+        run: echo "Bug Bounty Agent успешно прошёл проверку"
